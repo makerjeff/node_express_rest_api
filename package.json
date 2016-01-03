@@ -1,0 +1,10 @@
+{
+  "name":"node-express-rest-api",
+  "description":"a fine piece of express art",
+  "version":"0.0.1",
+  "private":"true",
+  "dependencies": {
+    "express":"^4.13.3",
+    "colors":"1.1.2"
+  }
+}

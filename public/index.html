@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <h1 id="title" draggable="true">My Page</h1>
+    <button id="firstButton">People</button><br>
+    <button id="secondButton">Quote</button><br>
+    <button id="thirdButton">Random Quote</button> <br>
+    <div id="resultDiv"></div>
+
+    <img src="img/50.jpg"> <br>
+    <img src="img/jefe.png">
+
+
+<script>
+    var button1 = document.getElementById('firstButton');
+    var button2 = document.getElementById('secondButton');
+    var button3 = document.getElementById('thirdButton');
+    var resultDiv = document.getElementById('resultDiv');
+
+    button1.addEventListener('click', function(event) {
+        grabData();
+    });
+
+    //custom functions
+
+    function grabData() {
+        var http = new XMLHttpRequest();
+
+        http.onreadystatechange = function() {
+
+            if(http.readyState == 4 && http.status == 200) {
+
+                var data = http.responseText;
+                var parsedData = JSON.parse(data);
+                var myString = '';
+
+                //
+                parsedData.forEach(function(element, index, array){
+                    myString += '<b>'
+                    myString += parsedData[index].first;
+                    myString += ' ';
+                    myString += parsedData[index].last;
+                    myString += ': </b>';
+                    myString += parsedData[index].title;
+                    myString += '<br>';
+                });
+
+                resultDiv.innerHTML = myString;
+            }
+        };
+
+        http.open('GET', '/json', true);
+        http.send();
+    }
+
+    function updateDisplay(data) {
+        resultDiv.innerHTML = data;
+    }
+
+</script>
+
+</body>
+</html>

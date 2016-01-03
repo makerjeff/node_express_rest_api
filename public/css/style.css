@@ -1,0 +1,29 @@
+/* STYLE.CSS */
+
+/*basic reset*/
+
+* {
+    padding:0px;
+    margin:0px;
+}
+
+h1 {
+    font-family: Montserrat, sans-serif;
+}
+
+.fullWidth {
+    width: 300px;
+}
+
+#title {
+
+}
+
+#resultDiv {
+    text-transform:capitalize;
+}
+
+#rpi_image {
+    width: 100%;
+}
+
