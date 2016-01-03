@@ -84,6 +84,8 @@ app.get('/quotes/random', function(request, response){
     console.log(colors.blue('client requested a random quote!'));
 });
 
+//TODO add parameters to routes
+
 //start the server
 init();
 
