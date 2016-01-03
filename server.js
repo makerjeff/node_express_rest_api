@@ -2,8 +2,12 @@
 
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var colors = require('colors');
 var port = process.argv[2];
+
+
+//TODO load date from file.
 
 //TODO Data logging to file.
 
@@ -41,6 +45,9 @@ var quotes = [
 //start serving static files
 app.use(express.static(__dirname + '/public'));
 
+//tell app to use body-parser
+app.use(bodyParser.json());
+
 //define routes
 app.get('/subaru', function(request, response){
     response.type('text/plain');
@@ -48,16 +55,17 @@ app.get('/subaru', function(request, response){
     console.log(colors.blue('Someone requested the subaru page!'));
 });
 
-// == returns file == NOT WORKING
+// == returns file == NOT WORKING ==
 app.get('/subaru_logo', function(request, response){
-    response.type('image/jpg');
-    response.send(__dirname + '/img/subaru-cars-logo-emblem.jpg');
+    //response.type('image/jpg');
+    response.sendFile(__dirname + '/public/img/subaru-cars-logo-emblem.jpg');
 });
 
 // == returns image ==
 app.get('/subaru_message', function(request, response){
     response.type('text/html');
     response.send('<img src="/img/subaru-cars-logo-emblem.jpg" width="400px">');
+    console.log(colors.blue('client requested subaru message'));
 });
 
 // == RETURN JSON DATA ==
@@ -77,20 +85,42 @@ app.get('/quotes', function(request, response){
 });
 
 // = return random quote =
-app.get('/quotes/random', function(request, response){
+app.get('/quote/random', function(request, response){
     var id = Math.floor(Math.random() * quotes.length);
     var q = quotes[id];
     response.json(q);
-    console.log(colors.blue('client requested a random quote!'));
+    console.log(colors.blue('client requested a random quote: ' + JSON.stringify(q)));
 });
 
-//TODO add parameters to routes
+// = return requested quote with ID
+app.get('/quote/:id', function(request, response){
+
+    // = ERROR HANDLING =
+    //if amount of quotes is less than or equal to input ID,
+    //OR the input ID is less than 0 (meaning no input)...
+    if(quotes.length <= request.params.id || request.params.id < 0) {
+        response.statusCode = 404;
+        return response.send('Error 404: No quote found!');
+    }
+
+    //if not errored, respond with json file
+    var q = quotes[request.params.id];
+    response.json(q);
+});
+
+//debug route with parameters
+app.get('/stuff/:id', function(request, response){
+    response.type('text/plain');
+    response.send('debug - you entered: "' + request.params.id +'"');
+});
+
+//TODO create POST method (2015.JAN.03)
 
 //start the server
 init();
 
 
-//== custom functions ==
+//== CUSTOM FUNCTIONS ==
 function init() {
     console.log(colors.green('starting server on ' + port + ', running on a ' + process.arch + ' machine.' ));
     app.listen(port || 8000);

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Page</title>
+    <title>Express REST API</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h1 id="title" draggable="true">My Page</h1>
+    <h1 id="title" draggable="true">Express REST API</h1>
     <button id="firstButton">People</button><br>
     <button id="secondButton">Quote</button><br>
     <button id="thirdButton">Random Quote</button> <br>
@@ -41,9 +41,9 @@
                 var parsedData = JSON.parse(data);
                 var myString = '';
 
-                //
+                // build up myString
                 parsedData.forEach(function(element, index, array){
-                    myString += '<b>'
+                    myString += '<b>';
                     myString += parsedData[index].first;
                     myString += ' ';
                     myString += parsedData[index].last;
