@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/lottery.css">
+    <title>SuperLotto Generator</title>
+</head>
+<body>
+
+    <div id="container">
+
+        <div id="title">
+            <h1>SuperLotto<sup class="small">PLUS</sup> Generator</h1>
+        </div>
+
+        <div id="numbers">
+            <!-- number from 1-47 -->
+            <div id="number01" class="ball">1</div>
+            <div id="number02" class="ball">2</div>
+            <div id="number03" class="ball">3</div>
+            <div id="number04" class="ball">4</div>
+            <div id="number05" class="ball">5</div>
+            <div id="number06" class="ball">6</div>
+
+            <!-- mega number from 1-27 -->
+            <div id="numberMega" class="ball">10</div>
+        </div>
+
+        <div id="bottomPin">
+            <div id="disclaimer">
+                <p>For entertainment only. Copyright 2016 © Jefferson Wu. All rights reserved.</p>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    //holds all the balls in this array for duplicate checking
+    var ballArray = [
+        firstBall,
+        secondBall,
+        thirdBall,
+        fourthBall,
+        fifthBall,
+        sixthBall,
+        megaBall
+    ];
+
+    //== local logic ==
+    var firstBall = randomBallNumber(47);
+    var secondBall = randomBallNumber(47);
+    var thirdBall = randomBallNumber(47);
+    var fourthBall = randomBallNumber(47);
+    var fifthBall = randomBallNumber(47);
+    var sixthBall = randomBallNumber(47);
+    var megaBall = randomBallNumber(27);
+
+    console.log('numbers: ' + firstBall
+            + ', '
+            + secondBall
+            + ', '
+            + thirdBall
+            + ', '
+            + fourthBall
+            + ', '
+            + fifthBall
+            + ', '
+            + sixthBall
+            + ', mega: '
+            + megaBall
+    );
+
+
+    // == HELPER FUNCTIONS ==
+
+    //creates random number
+    function randomBallNumber(max){
+        var num = Math.ceil(Math.random() * max);
+        return num;
+    }
+
+    //TODO duplicate checker
+
+
+
+
+</script>
+</body>
+</html>

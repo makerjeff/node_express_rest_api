@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Page</title>
+    <title>Express REST API</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h1 id="title" draggable="true">My Page</h1>
+    <h1 id="title" draggable="true">Express REST API</h1>
     <button id="firstButton">People</button><br>
     <button id="secondButton">Quote</button><br>
     <button id="thirdButton">Random Quote</button> <br>
@@ -25,12 +25,17 @@
     var resultDiv = document.getElementById('resultDiv');
 
     button1.addEventListener('click', function(event) {
-        grabData();
+        grabData('/json');
+    });
+
+    button2.addEventListener('click', function(event){
+        grabData('/quotes');
     });
 
     //custom functions
 
-    function grabData() {
+    // = essential custom XHR =
+    function grabData(path) {
         var http = new XMLHttpRequest();
 
         http.onreadystatechange = function() {
@@ -41,14 +46,15 @@
                 var parsedData = JSON.parse(data);
                 var myString = '';
 
-                //
+                // build up myString using array.prototype.forEach(element, index, array);
+                // (element value, element index, array being traversed)
                 parsedData.forEach(function(element, index, array){
-                    myString += '<b>'
-                    myString += parsedData[index].first;
+                    myString += '<b>';
+                    myString += array[index].first;
                     myString += ' ';
-                    myString += parsedData[index].last;
+                    myString += array[index].last;
                     myString += ': </b>';
-                    myString += parsedData[index].title;
+                    myString += array[index].title;
                     myString += '<br>';
                 });
 
@@ -56,7 +62,7 @@
             }
         };
 
-        http.open('GET', '/json', true);
+        http.open('GET', path, true);
         http.send();
     }
 
