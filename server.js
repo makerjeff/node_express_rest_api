@@ -1,4 +1,6 @@
-//server.js
+// ===================
+// ==== SERVER.JS ====
+// ===================
 
 //required modules + setup
 var express = require('express');
@@ -23,6 +25,13 @@ app.use(express.static(__dirname + '/public'));
 
 //tell app to use body-parser
 app.use(bodyParser.json());
+
+// = CONSOLE LOGGING MIDDLEWARE =
+// auto runs every time
+app.use(function(request, response, next){
+    console.log('%s %s %s', request.method, request.url, request.path);
+    next();
+});
 
 //= define routes =
 app.get('/subaru', function(request, response){

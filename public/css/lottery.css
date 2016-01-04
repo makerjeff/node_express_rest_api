@@ -1,0 +1,50 @@
+/*LOTTERY.CSS*/
+
+body {
+    background: rgba( 230,230,230, 1.0);
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.ball {
+    display: inline-flex;
+    position: relative;
+    width: 50px;
+    height: 50px;
+
+    font-family: 'Open Sans', sans-serif;
+
+    background: rgba(255,255,255,1);
+
+    border: 1px solid #00afff;
+    border-radius: 50%; /*make it round*/
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+/*NO SPACES in SELECTOR*/
+.ball#numberMega {
+    border: 1px solid red;
+}
+
+#container {
+    display: block;
+    position: relative;
+}
+
+#title {
+    display: block;
+    width: 600px;
+    height: auto;
+}
+
+#numbers {
+    display: block;
+    width: 600px;
+    height: auto;
+}
