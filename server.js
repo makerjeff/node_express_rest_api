@@ -21,17 +21,17 @@ var port = process.argv[2];
 
 //TODO Data logging to file.
 
-//BASIC GLOBAL AUTHENTICATION (example, not production ready)
-app.use(function(request, response, next){
-    var credentials = auth(request);
-    if(!credentials || credentials.name !== 'admin' || credentials.pass !== 'password2') {
-        response.statusCode = 401;
-        response.setHeader('WWW-Authenticate', 'Basic realm="example"');
-        response.end('Acess Denied');
-    } else {
-        response.send('this is working!');
-    }
-});
+////BASIC GLOBAL AUTHENTICATION (example, not production ready)
+//app.use(function(request, response, next){
+//    var credentials = auth(request);
+//    if(!credentials || credentials.name !== 'admin' || credentials.pass !== 'password2') {
+//        response.statusCode = 401;
+//        response.setHeader('WWW-Authenticate', 'Basic realm="example"');
+//        response.end('Acess Denied');
+//    } else {
+//        response.send('this is working!');
+//    }
+//});
 
 //start serving static files
 app.use(express.static(__dirname + '/public'));
