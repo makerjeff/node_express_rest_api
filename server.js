@@ -132,10 +132,9 @@ app.post('/quote', function(request, response) {
         dummy_data.quotes.push(newQuote);
         response.json(true);    //pass back SOMETHING otherwise frontend will error
     }
-
-
-
 });
+
+//TODO delete data from server using POST
 
 //TODO create custom 404 error handling via: https://www.safaribooksonline.com/blog/2014/03/12/error-handling-express-js-applications/
 
