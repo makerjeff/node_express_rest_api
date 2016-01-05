@@ -12,6 +12,25 @@
     <button id="firstButton">People</button><br>
     <button id="secondButton">Quote</button><br>
     <button id="thirdButton">Random Quote</button> <br>
+
+    <fieldset>
+        <lable>Name</lable>
+        <input id="box1" class="inputBox" type="text">
+
+        <label>Quote</label>
+        <input id="box2" class="inputBox" type="text">
+        <button id="fourthButton">Post Quote</button> <br>
+    </fieldset>
+
+    <fieldset>
+        <lable>Quote#:</lable>
+        <input id="deleteId" class="inputBox" type="text">
+
+        <button id="deleteButton">Delete</button> <br>
+    </fieldset>
+
+
+
     <div id="resultDiv"></div>
 
     <img src="img/50.jpg"> <br>
@@ -19,22 +38,28 @@
 
 
 <script>
+    //grab handles
     var button1 = document.getElementById('firstButton');
     var button2 = document.getElementById('secondButton');
     var button3 = document.getElementById('thirdButton');
+    var button4 = document.getElementById('fourthButton');
     var resultDiv = document.getElementById('resultDiv');
 
+    // = event listeners =
     button1.addEventListener('click', function(event) {
         grabData('/json');
     });
-
     button2.addEventListener('click', function(event){
-        grabData('/quotes');
+        grabQuotes();
+    });
+    button4.addEventListener('click', function(event){
+        postQuote();
     });
 
-    //custom functions
 
-    // = essential custom XHR =
+    //=== CUSTOM FUNCTIONS ===
+
+    // = GRAB USER DATA =
     function grabData(path) {
         var http = new XMLHttpRequest();
 
@@ -66,6 +91,71 @@
         http.send();
     }
 
+    // = GRAB QUOTES =
+    function grabQuotes() {
+        var http = new XMLHttpRequest();
+
+        http.onreadystatechange = function() {
+
+            if(http.readyState == 4 && http.status == 200) {
+                //logic goes here
+                var data = http.responseText;
+                var parsedData = JSON.parse(data);
+                var myString = '';
+
+                console.log(data);
+
+
+                parsedData.forEach(function(element,index,array){
+                    console.log(array[index].author + ': ' + array[index].text);
+
+                    myString += '[';
+                    myString += index;
+                    myString += ']';
+                    myString += '<b>';
+                    myString += array[index].author + ': ';
+                    myString += '</b>';
+                    myString += array[index].text;
+                    myString += '<br>';
+
+                    resultDiv.innerHTML = myString;
+                });
+            }
+        };
+
+        http.open('GET', '/quotes', true);
+        http.send();
+    }
+    // = GRAB QUOTES END =
+
+    // = POST QUOTE =
+    function postQuote(author, text) {
+
+        var box1 = document.getElementById('box1').value;
+        var box2 = document.getElementById('box2').value;
+
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function() {
+            if(http.readyState == 4 && http.status == 200) {
+                console.log(http.responseText);
+            }
+        };
+        // REQUIRED POST SETUP:
+        //open POST, API endpoint
+        http.open('POST', '/quote');
+        //set request header to JSON
+        http.setRequestHeader("Content-Type", "application/json");
+        //send stringified version to NODE server
+        http.send(JSON.stringify({"author":box1, "text":box2}));
+
+        //reset box fields
+        document.getElementById('box1').value = '';
+        document.getElementById('box2').value = '';
+
+    }
+    // = POST QUOTE END =
+
+    // = UPDATE DISPLAY =
     function updateDisplay(data) {
         resultDiv.innerHTML = data;
     }
